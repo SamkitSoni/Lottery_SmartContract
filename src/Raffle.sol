@@ -75,7 +75,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
     //When should the winner be picked?
     /**
      * @dev this is the function that the Chainlink nodes will call to see if the lottery is ready to have a winner picked.
-     * The following should be true in order for UpkeepNeeded to be true: 
+     * The following should be true in order for UpkeepNeeded to be true:
      * 1. The time interval has passsed between raffle runs.
      * 2. The lottery is open.
      * 3. The contract has ETH.
