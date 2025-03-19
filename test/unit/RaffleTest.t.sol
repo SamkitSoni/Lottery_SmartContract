@@ -69,6 +69,8 @@ contract RaffleTest is Test {
         vm.warp(block.timestamp + interval+1); //To make sure enough time has passed
         vm.roll(block.number + 1); //Block is increamented by 1
         raffle.performUpkeep("");
+
+        //Act / Assert
         vm.expectRevert(Raffle.Raffle__NotOpen.selector);
         vm.prank(PLAYER);
         raffle.enterRaffle{value: enteranceFee}();
