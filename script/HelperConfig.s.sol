@@ -71,7 +71,7 @@ contract HelperConfig is CodeConstants, Script {
         vm.startBroadcast();
         VRFCoordinatorV2_5Mock vrfCoordinatorMock =
             new VRFCoordinatorV2_5Mock(MOCK_BASE_FEE, MOCK_GAS_PRICE_LINK, MOCK_WEI_PER_UNIT_LINK);
-            LinkToken linkToken = new LinkToken();
+        LinkToken linkToken = new LinkToken();
         vm.stopBroadcast();
 
         localNetworkConfig = NetworkConfig({
@@ -82,7 +82,6 @@ contract HelperConfig is CodeConstants, Script {
             callbackGasLimit: 500000,
             subscriptionId: 0,
             link: address(linkToken)
-
         });
         return localNetworkConfig;
     }

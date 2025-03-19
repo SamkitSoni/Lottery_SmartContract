@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT 
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
 import {Script, console} from "forge-std/Script.sol";
@@ -13,8 +13,8 @@ contract CreateSubscription is Script {
     function createSubscriptionUsingConfig() public returns (uint256, address) {
         HelperConfig helperConfig = new HelperConfig();
         address vrfCoordinator = helperConfig.getConfig().vrfCoordinator;
-        (uint256 subID, ) = createSubscription(vrfCoordinator);
-        return (subID, vrfCoordinator);      
+        (uint256 subID,) = createSubscription(vrfCoordinator);
+        return (subID, vrfCoordinator);
     }
 
     function createSubscription(address vrfCoordinator) public returns (uint256, address) {
@@ -26,7 +26,7 @@ contract CreateSubscription is Script {
         console.log("Please update your subscription ID in the HelperConfig contract");
         return (subID, vrfCoordinator);
     }
-    
+
     function run() public {
         createSubscriptionUsingConfig();
     }
@@ -49,7 +49,7 @@ contract FundSubscription is Script {
         console.log("Using vrfCoordinator: ", vrfCoordinator);
         console.log("On ChainId:", block.chainid);
 
-        if(block.chainid == LOCAL_CHAIN_ID) {
+        if (block.chainid == LOCAL_CHAIN_ID) {
             vm.startBroadcast();
             VRFCoordinatorV2_5Mock(vrfCoordinator).fundSubscription(subscriptionID, FUND_AMOUNT);
             vm.stopBroadcast();
@@ -72,6 +72,7 @@ contract AddConsumer is Script {
         uint256 subID = helperConfig.getConfig().subscriptionId;
         addConsumer(mostRecentDeployed, vrfCoordinator, subID);
     }
+
     function addConsumer(address contractToAddtoVrf, address vrfCoordinator, uint256 subID) public {
         console.log("Adding Consumer Contract: ", contractToAddtoVrf);
         console.log("To VRF Coordinator: ", vrfCoordinator);
@@ -80,7 +81,7 @@ contract AddConsumer is Script {
         VRFCoordinatorV2_5Mock(vrfCoordinator).addConsumer(subID, contractToAddtoVrf);
         vm.stopBroadcast();
     }
-    
+
     function run() external {
         address mostRecentDeployed = DevOpsTools.get_most_recent_deployment("Raffle", block.chainid);
         addConsumerUsingConfig(mostRecentDeployed);

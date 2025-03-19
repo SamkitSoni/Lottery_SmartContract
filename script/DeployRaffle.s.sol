@@ -17,10 +17,11 @@ contract DeployRaffle is Script {
         //sepolia -> Get sepolia config
         HelperConfig.NetworkConfig memory config = helperConfig.getConfig();
 
-        if(config.subscriptionId == 0) {
+        if (config.subscriptionId == 0) {
             //create subscription
             CreateSubscription createSubscription = new CreateSubscription();
-            (config.subscriptionId, config.vrfCoordinator) = createSubscription.createSubscription(config.vrfCoordinator);
+            (config.subscriptionId, config.vrfCoordinator) =
+                createSubscription.createSubscription(config.vrfCoordinator);
 
             //Fund it
             FundSubscription fundSubscription = new FundSubscription();
